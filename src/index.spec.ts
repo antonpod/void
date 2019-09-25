@@ -15,12 +15,6 @@ describe('Void', () => {
     test('empty void creates a null Thing', () => {
       expect(Void.spawn('thing').thing()).toBeNull();
     });
-  });
-
-  describe('Fill', () => {
-    test('void can be filled', () => {
-      expect(Void.spawn('thing').fill()).toBeInstanceOf(Void);
-    });
 
     test('filled void can create a Thing', () => {
       expect(
