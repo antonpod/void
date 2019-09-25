@@ -1,0 +1,49 @@
+{
+  "name": "void",
+  "version": "1.0.0",
+  "description": "Is Void",
+  "author": {
+    "name": "Anton Podolsky"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antonpod/void/issues"
+  },
+  "homepage": "https://github.com/antonpod/void#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonpod/void.git"
+  },
+  "keywords": [
+    "void"
+  ],
+  "main": "./lib/index.js",
+  "files": [
+    "./bin/*",
+    "./lib/*"
+  ],
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "start": "jest --watchAll",
+    "test": "jest",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "prepublish": "npm run build && npm run test"
+  },
+  "dependencies": {
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/uuid": "^3.4.5",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
+  }
+}
