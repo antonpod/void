@@ -1,6 +1,6 @@
 import { Atom, Thing, Reducer } from './types';
 
-export const reduce: Reducer = (thing: string) => (
+export const one: Reducer = (thing: string) => (
   state: Thing,
   atom: Atom,
 ): Thing => {

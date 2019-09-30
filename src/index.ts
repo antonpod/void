@@ -1,5 +1,5 @@
 import { Atom, Thing } from './types';
-import { reduce } from './reducers';
+import { one } from './reducers';
 
 export class Void {
   private atoms: Atom[] = [];
@@ -38,7 +38,7 @@ export class Void {
 
   public thing(): Thing {
     return this.atoms.reduce(
-      (res: Thing, atom: Atom) => reduce(this.type)(res, atom),
+      (res: Thing, atom: Atom) => one(this.type)(res, atom),
       null,
     );
   }
