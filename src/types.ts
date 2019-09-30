@@ -1,4 +1,5 @@
 export interface Atom {
+  id: string;
   type: string;
   [key: string]: any;
 }

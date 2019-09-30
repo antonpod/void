@@ -8,17 +8,17 @@ export class Void {
 
   static spawn = (type: string): Void => new Void(type);
   static atom = <T extends Thing>(type: string) => ({
-    create: (id: string) => ({
+    create: (id: string): Atom => ({
       id,
       type: `${type}.create`,
       [type]: { id } as T,
     }),
-    update: <P extends keyof T>(id: string, prop: P, value: T[P]) => ({
+    update: <P extends keyof T>(id: string, prop: P, value: T[P]): Atom => ({
       id,
       type: `${type}.update.${prop}`,
       [prop]: value,
     }),
-    delete: (id: string) => ({
+    delete: (id: string): Atom => ({
       id,
       type: `${type}.delete`,
     }),
