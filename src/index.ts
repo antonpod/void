@@ -1,5 +1,5 @@
 import { Atom, Thing } from './types';
-import { one } from './reducers';
+import { one, many } from './reducers';
 
 export class Void {
   private atoms: Atom[] = [];
@@ -11,7 +11,7 @@ export class Void {
     create: (id: string) => ({
       id,
       type: `${type}.create`,
-      [type]: { id },
+      [type]: { id } as T,
     }),
     update: <P extends keyof T>(id: string, prop: P, value: T[P]) => ({
       id,
@@ -35,9 +35,10 @@ export class Void {
   }
 
   public thing(): Thing {
-    return this.atoms.reduce(
-      (res: Thing, atom: Atom) => one(this.type)(res, atom),
-      null,
-    );
+    return one(this.type)(this.atoms);
+  }
+
+  public things(): Thing[] {
+    return many(this.type)(this.atoms);
   }
 }

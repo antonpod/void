@@ -51,5 +51,31 @@ describe('Void', () => {
         isDeleted: true,
       });
     });
+
+    test('filled void can create many Things', () => {
+      const id1 = uuid();
+      const id2 = uuid();
+      const v = Void.spawn('thing');
+
+      expect(
+        v.fill([v.atom().create(id1), v.atom().create(id2)]).things(),
+      ).toEqual([{ id: id1 }, { id: id2 }]);
+    });
+
+    test('filled void can create many Things without the deleted ones', () => {
+      const id1 = uuid();
+      const id2 = uuid();
+      const v = Void.spawn('thing');
+
+      expect(
+        v
+          .fill([
+            v.atom().create(id1),
+            v.atom().delete(id1),
+            v.atom().create(id2),
+          ])
+          .things(),
+      ).toEqual([{ id: id2 }]);
+    });
   });
 });

@@ -1,6 +1,6 @@
 import { Atom, Thing, Reducer } from './types';
 
-export const one: Reducer = <T extends Thing>(type: string) => (
+const reducer: Reducer = <T extends Thing>(type: string) => (
   state: T,
   atom: Atom,
 ): Thing => {
@@ -24,4 +24,21 @@ export const one: Reducer = <T extends Thing>(type: string) => (
   }
 
   return state;
+};
+
+export const one = (type: string) => (atoms: Atom[]) => {
+  const reduce = reducer(type);
+
+  return atoms.reduce((res: Thing, atom: Atom) => reduce(res, atom), null);
+};
+
+export const many = (type: string) => (atoms: Atom[]) => {
+  const reduce = reducer(type);
+
+  return Object.values(
+    atoms.reduce((res: Record<string, Thing>, atom: Atom) => {
+      res[atom.id] = reduce(res[atom.id], atom);
+      return res;
+    }, {}),
+  ).filter(thing => !thing.isDeleted);
 };
