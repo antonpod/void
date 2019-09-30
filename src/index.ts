@@ -1,4 +1,3 @@
-import uuid from 'uuid/v4';
 import { Atom, Thing } from './types';
 import { reduce } from './reducers';
 
@@ -8,12 +7,28 @@ export class Void {
   constructor(private readonly type: string) {}
 
   static spawn = (type: string): Void => new Void(type);
-  static atom = (type: string): Atom => ({
-    type: `${type}.create`,
-    thing: {
-      id: uuid(),
-    },
+  static atom = (type: string) => ({
+    create: (id: string) => ({
+      id,
+      type: `${type}.create`,
+      [type]: {
+        id,
+      },
+    }),
+    update: (id: string, prop: string, value: any) => ({
+      id,
+      type: `${type}.update.${prop}`,
+      [prop]: value,
+    }),
+    delete: (id: string) => ({
+      id,
+      type: `${type}.delete`,
+    }),
   });
+
+  public atom(): any {
+    return Void.atom(this.type);
+  }
 
   public fill(atoms: Atom[] = []): Void {
     this.atoms.push(...atoms);

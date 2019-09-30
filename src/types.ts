@@ -5,6 +5,7 @@ export interface Atom {
 
 export interface Thing {
   id: string;
+  isDeleted?: boolean;
   [key: string]: unknown;
 }
 
