@@ -1,7 +1,7 @@
 import { Atom, Thing, Reducer } from './types';
 
-export const one: Reducer = (thing: string) => (
-  state: Thing,
+export const one: Reducer = <T extends Thing>(type: string) => (
+  state: T,
   atom: Atom,
 ): Thing => {
   if (state && state.id !== atom.id) {
@@ -9,14 +9,14 @@ export const one: Reducer = (thing: string) => (
   }
 
   switch (atom.type) {
-    case `${thing}.create`:
-      state = atom[thing] as Thing;
+    case `${type}.create`:
+      state = atom[type];
       break;
-    case `${thing}.delete`:
+    case `${type}.delete`:
       state = { ...state, isDeleted: true };
       break;
     default:
-      if (atom.type.startsWith(`${thing}.update.`)) {
+      if (atom.type.startsWith(`${type}.update.`)) {
         const prop = atom.type.split('.').pop();
 
         state = { ...state, [prop]: atom[prop] };
