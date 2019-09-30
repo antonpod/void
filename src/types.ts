@@ -1,12 +1,12 @@
 export interface Atom {
   type: string;
-  [key: string]: unknown;
+  [key: string]: any;
 }
 
 export interface Thing {
   id: string;
+  name: string;
   isDeleted?: boolean;
-  [key: string]: unknown;
 }
 
 export interface Reducer<T = Thing> {

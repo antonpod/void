@@ -1,5 +1,5 @@
 {
-  "name": "void",
+  "name": "@neonvoid/void",
   "version": "1.0.0",
   "description": "Is Void",
   "author": {
@@ -17,12 +17,11 @@
   "keywords": [
     "void"
   ],
-  "main": "./lib/index.js",
+  "main": "./src/index.js",
   "files": [
-    "./bin/*",
-    "./lib/*"
+    "./src/*"
   ],
-  "typings": "./lib/index.d.ts",
+  "typings": "./src/index.d.ts",
   "scripts": {
     "start": "jest --watchAll",
     "test": "jest",

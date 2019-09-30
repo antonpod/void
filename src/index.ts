@@ -7,15 +7,13 @@ export class Void {
   constructor(private readonly type: string) {}
 
   static spawn = (type: string): Void => new Void(type);
-  static atom = (type: string) => ({
+  static atom = <T extends Thing>(type: string) => ({
     create: (id: string) => ({
       id,
       type: `${type}.create`,
-      [type]: {
-        id,
-      },
+      [type]: { id },
     }),
-    update: (id: string, prop: string, value: any) => ({
+    update: <P extends keyof T>(id: string, prop: P, value: T[P]) => ({
       id,
       type: `${type}.update.${prop}`,
       [prop]: value,
@@ -26,8 +24,8 @@ export class Void {
     }),
   });
 
-  public atom(): any {
-    return Void.atom(this.type);
+  public atom<T extends Thing>() {
+    return Void.atom<T>(this.type);
   }
 
   public fill(atoms: Atom[] = []): Void {
