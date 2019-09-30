@@ -13,13 +13,16 @@ describe('Void', () => {
   });
 
   describe('Thing', () => {
+    let v: Void;
+
+    beforeEach(() => (v = Void.spawn('thing')));
+
     test('empty void creates a null Thing', () => {
       expect(Void.spawn('thing').thing()).toBeNull();
     });
 
     test('filled void can create a Thing', () => {
       const id = uuid();
-      const v = Void.spawn('thing');
 
       expect(v.fill([v.atom().create(id)]).thing()).toEqual({
         id,
@@ -28,7 +31,6 @@ describe('Void', () => {
 
     test('filled void can create and update a Thing', () => {
       const id = uuid();
-      const v = Void.spawn('thing');
 
       expect(
         v
@@ -42,7 +44,6 @@ describe('Void', () => {
 
     test('filled void can create and destroy a Thing', () => {
       const id = uuid();
-      const v = Void.spawn('thing');
 
       expect(
         v.fill([v.atom().create(id), v.atom().delete(id)]).thing(),
@@ -55,17 +56,15 @@ describe('Void', () => {
     test('filled void can create many Things', () => {
       const id1 = uuid();
       const id2 = uuid();
-      const v = Void.spawn('thing');
 
       expect(
         v.fill([v.atom().create(id1), v.atom().create(id2)]).things(),
       ).toEqual([{ id: id1 }, { id: id2 }]);
     });
 
-    test('filled void can create many Things without the deleted ones', () => {
+    test('filled void can create many Things without the destroyed ones', () => {
       const id1 = uuid();
       const id2 = uuid();
-      const v = Void.spawn('thing');
 
       expect(
         v
