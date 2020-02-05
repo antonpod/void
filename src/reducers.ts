@@ -8,19 +8,23 @@ const reducer: Reducer = <T extends Thing>(type: string) => (
     return state;
   }
 
-  switch (atom.type) {
-    case `${type}.create`:
+  const [thing, action, prop] = atom.type.split('.');
+
+  if (thing !== type) {
+    return state;
+  }
+
+  switch (action) {
+    case 'create':
       state = atom[type];
       break;
-    case `${type}.delete`:
+    case `delete`:
       state = { ...state, isDeleted: true };
       break;
+    case `update`:
+      state = { ...state, [prop]: atom[prop] };
+      break;
     default:
-      if (atom.type.startsWith(`${type}.update.`)) {
-        const prop = atom.type.split('.').pop();
-
-        state = { ...state, [prop]: atom[prop] };
-      }
   }
 
   return state;
