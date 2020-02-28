@@ -18,7 +18,7 @@ describe('Void', () => {
     beforeEach(() => (v = Void.spawn('thing')));
 
     test('empty void creates a null Thing', () => {
-      expect(Void.spawn('thing').thing()).toBeNull();
+      expect(v.thing()).toBeNull();
     });
 
     test('filled void can create a Thing', () => {
